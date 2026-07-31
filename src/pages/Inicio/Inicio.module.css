@@ -1,0 +1,30 @@
+.inicio {
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.bienvenida {
+  margin-bottom: 32px;
+}
+
+.bienvenida h2 {
+  margin-bottom: 8px;
+}
+
+.bienvenida p {
+  margin: 0;
+}
+
+.dashboard {
+  margin-top: 24px;
+}
+
+.dashboard h2 {
+  margin-bottom: 16px;
+}
+
+.contenido {
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+}

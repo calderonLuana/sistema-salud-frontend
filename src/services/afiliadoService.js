@@ -12,4 +12,21 @@ async function registro(datos) {
   return response.data;
 }
 
-export { login, registro };
+async function obtenerAfiliado(id) {
+  const response = await api.get(`/afiliados/${id}`);
+
+  return response.data;
+}
+
+async function obtenerGrupoFamiliar(id) {
+  const response = await api.get(`/afiliados/grupo/${id}`);
+
+  return response.data;
+}
+
+export {
+  login,
+  registro,
+  obtenerAfiliado,
+  obtenerGrupoFamiliar
+};
