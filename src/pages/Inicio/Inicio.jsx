@@ -1,5 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { obtenerTurnosProximos } from "../../services/turnoService";
+import ProximoTurno from "../../components/ProximoTurno/ProximoTurno";
 
 import {
   obtenerAfiliado,
@@ -7,13 +9,14 @@ import {
 } from "../../services/afiliadoService";
 
 import InformacionAfiliado from "../../components/InformacionAfiliado/InformacionAfiliado";
-import GrupoFamiliar from "../GrupoFamiliar/GrupoFamiliar";
+import GrupoFamiliar from "../../components/GrupoFamiliar/GrupoFamiliar";
 
 function Inicio() {
   const { usuario } = useContext(AuthContext);
 
   const [afiliado, setAfiliado] = useState(null);
   const [grupoFamiliar, setGrupoFamiliar] = useState([]);
+  const [proximoTurno, setProximoTurno] = useState(null);
 
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
@@ -25,8 +28,14 @@ function Inicio() {
 
         const datosGrupo = await obtenerGrupoFamiliar(usuario.id);
 
+        const turnos = await obtenerTurnosProximos(usuario.id);
+
         setAfiliado(datosAfiliado);
         setGrupoFamiliar(datosGrupo.Afiliados);
+
+        if (turnos.length > 0) {
+          setProximoTurno(turnos[0]);
+        }
       } catch (error) {
         console.error(error);
         setError("No se pudieron cargar los datos.");
@@ -64,6 +73,10 @@ function Inicio() {
 
       <GrupoFamiliar
         integrantes={grupoFamiliar}
+      />
+
+      <ProximoTurno
+        turno={proximoTurno}
       />
     </>
   );
