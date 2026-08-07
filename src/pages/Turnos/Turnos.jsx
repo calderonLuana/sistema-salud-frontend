@@ -21,26 +21,14 @@ function Turnos() {
   }, []);
 
   async function cargarTurnos() {
-    console.log("Entró a cargarTurnos");
-
     try {
-      console.log("Antes de próximos");
-
       const turnosProximos = await obtenerTurnosProximos(usuario.id);
-
-      console.log(JSON.stringify(turnosProximos, null, 2));
-
-      console.log("Antes de historial");
-
       const turnosHistorial = await obtenerTurnosAnteriores(usuario.id);
-
-      console.log("Respuesta historial:", turnosHistorial);
 
       setProximos(turnosProximos);
       setHistorial(turnosHistorial);
     } catch (error) {
-      console.error("ERROR:", error);
-
+      console.error(error);
       setError("No se pudieron cargar los turnos.");
     } finally {
       setLoading(false);
@@ -59,15 +47,9 @@ function Turnos() {
     <>
       <h1>Mis Turnos</h1>
 
-      <ListaTurnos
-        titulo="Próximos"
-        turnos={proximos}
-      />
+      <ListaTurnos titulo="Próximos" turnos={proximos} />
 
-      <ListaTurnos
-        titulo="Historial"
-        turnos={historial}
-      />
+      <ListaTurnos titulo="Historial" turnos={historial} />
     </>
   );
 }
