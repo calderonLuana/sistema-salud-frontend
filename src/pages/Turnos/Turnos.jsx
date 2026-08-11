@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+
 import {
   obtenerTurnosProximos,
   obtenerTurnosAnteriores,
@@ -22,6 +23,8 @@ function Turnos() {
 
   async function cargarTurnos() {
     try {
+      setError("");
+
       const turnosProximos = await obtenerTurnosProximos(usuario.id);
       const turnosHistorial = await obtenerTurnosAnteriores(usuario.id);
 
@@ -29,6 +32,7 @@ function Turnos() {
       setHistorial(turnosHistorial);
     } catch (error) {
       console.error(error);
+
       setError("No se pudieron cargar los turnos.");
     } finally {
       setLoading(false);
@@ -47,9 +51,17 @@ function Turnos() {
     <>
       <h1>Mis Turnos</h1>
 
-      <ListaTurnos titulo="Próximos" turnos={proximos} />
+      <ListaTurnos
+        titulo="Próximos"
+        turnos={proximos}
+        onTurnoCancelado={cargarTurnos}
+      />
 
-      <ListaTurnos titulo="Historial" turnos={historial} />
+      <ListaTurnos
+        titulo="Historial"
+        turnos={historial}
+        onTurnoCancelado={cargarTurnos}
+      />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import TarjetaTurno from "../TarjetaTurno/TarjetaTurno";
 
-function ListaTurnos({ titulo, turnos }) {
+function ListaTurnos({ titulo, turnos, onTurnoCancelado }) {
   return (
     <section>
       <h2>{titulo}</h2>
@@ -12,6 +12,7 @@ function ListaTurnos({ titulo, turnos }) {
           <TarjetaTurno
             key={turno.id}
             turno={turno}
+            onTurnoCancelado={onTurnoCancelado}
           />
         ))
       )}
