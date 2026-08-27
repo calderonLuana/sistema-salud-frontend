@@ -1,8 +1,9 @@
+import { Link } from "react-router-dom";
 import { formatearFecha } from "../../utils/formatearFecha";
 import { formatearHora } from "../../utils/formatearHora";
-import { cancelarTurno } from "../../services/turnoService";
+import styles from "./TarjetaTurno.module.css";
 
-function TarjetaTurno({ turno, onTurnoCancelado }) {
+function TarjetaTurno({ turno, onCancelar }) {
   const { Disponibilidad, estado } = turno;
 
   const {
@@ -18,62 +19,69 @@ function TarjetaTurno({ turno, onTurnoCancelado }) {
     apellido,
   } = Profesional;
 
-  async function handleCancelar() {
-    const confirmar = window.confirm(
-      "¿Estás seguro de que querés cancelar este turno?"
-    );
-
-    if (!confirmar) {
-      return;
-    }
-
-    try {
-      await cancelarTurno(turno.id);
-
-      onTurnoCancelado();
-    } catch (error) {
-      console.error(error);
-
-      const mensaje =
-        error.response?.data?.error ||
-        "No se pudo cancelar el turno.";
-
-      alert(mensaje);
-    }
-  }
-
   return (
-    <div>
-      <h3>{Especialidad.nombre}</h3>
+    <article className={styles.tarjeta}>
 
-      <p>
-        <strong>Profesional:</strong> Dr. {nombre} {apellido}
-      </p>
+      <div className={styles.franjaFecha}>
+        {formatearFecha(fecha)} • {formatearHora(hora)} hs
+      </div>
 
-      <p>
-        <strong>Fecha:</strong> {formatearFecha(fecha)}
-      </p>
+      <div className={styles.cuerpo}>
 
-      <p>
-        <strong>Hora:</strong> {formatearHora(hora)}
-      </p>
+        <div className={styles.encabezado}>
+          <div className={styles.profesionalInfo}>
+            <h3 className={styles.nombreProfesional}>
+              Dr. {nombre} {apellido}
+            </h3>
 
-      <p>
-        <strong>Lugar:</strong> {lugar}
-      </p>
+            <p className={styles.especialidad}>
+              {Especialidad.nombre}
+            </p>
+          </div>
 
-      <p>
-        <strong>Estado:</strong> {estado}
-      </p>
+          <span
+            className={`${styles.estado} ${
+              estado === "RESERVADO"
+                ? styles.reservado
+                : styles.cancelado
+            }`}
+          >
+            {estado}
+          </span>
+        </div>
 
-      {estado === "RESERVADO" && (
-        <button onClick={handleCancelar}>
-          Cancelar turno
-        </button>
-      )}
+        <div className={styles.dato}>
+          <span className={styles.etiqueta}>
+            Lugar
+          </span>
 
-      <hr />
-    </div>
+          <span className={styles.valor}>
+            {lugar}
+          </span>
+        </div>
+
+        {estado === "RESERVADO" && (
+          <div className={styles.acciones}>
+            <Link
+              to={`/turnos/${turno.id}/editar`}
+              className={styles.botonEditar}
+            >
+              Editar turno
+            </Link>
+
+            <button
+              type="button"
+              className={styles.botonCancelar}
+              onClick={() => onCancelar(turno.id)}
+            >
+              Cancelar turno
+            </button>
+          </div>
+        )}
+
+      </div>
+
+    </article>
   );
 }
 

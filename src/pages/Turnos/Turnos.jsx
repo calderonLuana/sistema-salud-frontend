@@ -1,12 +1,16 @@
 import { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 import {
   obtenerTurnosProximos,
   obtenerTurnosAnteriores,
+  cancelarTurno,
 } from "../../services/turnoService";
 
 import ListaTurnos from "../../components/ListaTurnos/ListaTurnos";
+import EncabezadoPagina from "../../components/EncabezadoPagina/EncabezadoPagina";
+import styles from "./Turnos.module.css";
 
 function Turnos() {
   const { usuario } = useContext(AuthContext);
@@ -39,6 +43,18 @@ function Turnos() {
     }
   }
 
+  async function manejarCancelacion(turnoId) {
+    try {
+      await cancelarTurno(turnoId);
+
+      await cargarTurnos();
+    } catch (error) {
+      console.error(error);
+
+      setError("No se pudo cancelar el turno.");
+    }
+  }
+
   if (loading) {
     return <p>Cargando...</p>;
   }
@@ -49,19 +65,32 @@ function Turnos() {
 
   return (
     <>
-      <h1>Mis Turnos</h1>
+      <EncabezadoPagina titulo="Turnos" />
 
-      <ListaTurnos
-        titulo="Próximos"
-        turnos={proximos}
-        onTurnoCancelado={cargarTurnos}
-      />
+      <main className={styles.contenedor}>
+        <header className={styles.encabezado}>
+          <h1>Mis Turnos</h1>
+          <p>Consultá y administrá tus turnos médicos.</p>
+        </header>
 
-      <ListaTurnos
-        titulo="Historial"
-        turnos={historial}
-        onTurnoCancelado={cargarTurnos}
-      />
+        <Link to="/turnos/solicitar">+ Solicitar turno</Link>
+
+        <section className={styles.seccion}>
+          <ListaTurnos
+            titulo="Próximos"
+            turnos={proximos}
+            onCancelar={manejarCancelacion}
+          />
+        </section>
+
+        <section className={styles.seccion}>
+          <ListaTurnos
+            titulo="Historial"
+            turnos={historial}
+            onCancelar={manejarCancelacion}
+          />
+        </section>
+      </main>
     </>
   );
 }

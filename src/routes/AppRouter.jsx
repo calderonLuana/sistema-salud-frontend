@@ -4,6 +4,8 @@ import Login from "../pages/Login/Login";
 import Registro from "../pages/Registro/Registro";
 import Inicio from "../pages/Inicio/Inicio";
 import Turnos from "../pages/Turnos/Turnos";
+import SolicitarTurno from "../pages/SolicitarTurno/SolicitarTurno";
+import EditarTurno from "../pages/EditarTurno/EditarTurno";
 import ProtectedRoute from "./ProtectedRoute";
 
 function AppRouter() {
@@ -30,6 +32,24 @@ function AppRouter() {
           element={
             <ProtectedRoute>
               <Turnos />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/turnos/solicitar"
+          element={
+            <ProtectedRoute>
+              <SolicitarTurno />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/turnos/:id/editar"
+          element={
+            <ProtectedRoute>
+              <EditarTurno />
             </ProtectedRoute>
           }
         />

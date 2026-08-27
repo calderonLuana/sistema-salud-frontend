@@ -1,20 +1,23 @@
 import TarjetaTurno from "../TarjetaTurno/TarjetaTurno";
+import styles from "./ListaTurnos.module.css";
 
-function ListaTurnos({ titulo, turnos, onTurnoCancelado }) {
+function ListaTurnos({ titulo, turnos, onCancelar }) {
   return (
-    <section>
-      <h2>{titulo}</h2>
+    <section className={styles.lista}>
+      <h2 className={styles.titulo}>{titulo}</h2>
 
       {turnos.length === 0 ? (
-        <p>No hay turnos.</p>
+        <p className={styles.vacio}>No hay turnos.</p>
       ) : (
-        turnos.map((turno) => (
-          <TarjetaTurno
-            key={turno.id}
-            turno={turno}
-            onTurnoCancelado={onTurnoCancelado}
-          />
-        ))
+        <div className={styles.grupo}>
+          {turnos.map((turno) => (
+            <TarjetaTurno
+              key={turno.id}
+              turno={turno}
+              onCancelar={onCancelar}
+            />
+          ))}
+        </div>
       )}
     </section>
   );
