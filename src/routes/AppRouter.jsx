@@ -6,6 +6,9 @@ import Inicio from "../pages/Inicio/Inicio";
 import Turnos from "../pages/Turnos/Turnos";
 import SolicitarTurno from "../pages/SolicitarTurno/SolicitarTurno";
 import EditarTurno from "../pages/EditarTurno/EditarTurno";
+import Recetas from "../pages/Recetas/Recetas";
+import SolicitarReceta from "../pages/SolicitarReceta/SolicitarReceta";
+import RenovarReceta from "../pages/RenovarReceta/RenovarReceta";
 import ProtectedRoute from "./ProtectedRoute";
 
 function AppRouter() {
@@ -50,6 +53,33 @@ function AppRouter() {
           element={
             <ProtectedRoute>
               <EditarTurno />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/recetas"
+          element={
+            <ProtectedRoute>
+              <Recetas />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/recetas/solicitar"
+          element={
+            <ProtectedRoute>
+              <SolicitarReceta />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/recetas/:id/renovar"
+          element={
+            <ProtectedRoute>
+              <RenovarReceta />
             </ProtectedRoute>
           }
         />

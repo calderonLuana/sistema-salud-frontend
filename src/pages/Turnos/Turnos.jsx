@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -8,8 +8,11 @@ import {
   cancelarTurno,
 } from "../../services/turnoService";
 
+import { filtrarTurnos } from "../../utils/filtrarTurnos";
+
 import ListaTurnos from "../../components/ListaTurnos/ListaTurnos";
 import EncabezadoPagina from "../../components/EncabezadoPagina/EncabezadoPagina";
+import FiltrosTurnos from "../../components/FiltrosTurnos/FiltrosTurnos";
 import styles from "./Turnos.module.css";
 
 function Turnos() {
@@ -17,6 +20,9 @@ function Turnos() {
 
   const [proximos, setProximos] = useState([]);
   const [historial, setHistorial] = useState([]);
+
+  const [textoFiltro, setTextoFiltro] = useState("");
+  const [estadoFiltro, setEstadoFiltro] = useState("TODOS");
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -55,6 +61,24 @@ function Turnos() {
     }
   }
 
+  const proximosFiltrados = useMemo(
+    () =>
+      filtrarTurnos(proximos, {
+        texto: textoFiltro,
+        estado: estadoFiltro,
+      }),
+    [proximos, textoFiltro, estadoFiltro]
+  );
+
+  const historialFiltrado = useMemo(
+    () =>
+      filtrarTurnos(historial, {
+        texto: textoFiltro,
+        estado: estadoFiltro,
+      }),
+    [historial, textoFiltro, estadoFiltro]
+  );
+
   if (loading) {
     return <p>Cargando...</p>;
   }
@@ -75,10 +99,17 @@ function Turnos() {
 
         <Link to="/turnos/solicitar">+ Solicitar turno</Link>
 
+        <FiltrosTurnos
+          texto={textoFiltro}
+          onCambiarTexto={setTextoFiltro}
+          estado={estadoFiltro}
+          onCambiarEstado={setEstadoFiltro}
+        />
+
         <section className={styles.seccion}>
           <ListaTurnos
             titulo="Próximos"
-            turnos={proximos}
+            turnos={proximosFiltrados}
             onCancelar={manejarCancelacion}
           />
         </section>
@@ -86,7 +117,7 @@ function Turnos() {
         <section className={styles.seccion}>
           <ListaTurnos
             titulo="Historial"
-            turnos={historial}
+            turnos={historialFiltrado}
             onCancelar={manejarCancelacion}
           />
         </section>

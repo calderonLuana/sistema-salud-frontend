@@ -1,0 +1,36 @@
+.contenedor {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+.encabezado {
+  margin-bottom: 24px;
+}
+
+.encabezado h1 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.encabezado p {
+  margin: 0;
+  font-size: 15px;
+  color: #6b7280;
+}
+
+.seccion {
+  margin-top: 24px;
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    padding: 16px 12px 32px;
+  }
+
+  .encabezado h1 {
+    font-size: 22px;
+  }
+}

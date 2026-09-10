@@ -1,0 +1,47 @@
+.contenedor {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.buscador {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1f2937;
+}
+
+.buscador:focus {
+  outline: none;
+  border-color: #7c6fe0;
+}
+
+.selectEstado {
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #1f2937;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+
+.selectEstado:focus {
+  outline: none;
+  border-color: #7c6fe0;
+}
+
+@media (max-width: 600px) {
+  .contenedor {
+    flex-direction: column;
+  }
+
+  .buscador,
+  .selectEstado {
+    width: 100%;
+  }
+}
