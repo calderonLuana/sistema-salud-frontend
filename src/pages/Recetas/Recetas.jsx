@@ -10,6 +10,7 @@ import { filtrarRecetas } from "../../utils/filtrarRecetas";
 import ListaRecetas from "../../components/ListaRecetas/ListaRecetas";
 import EncabezadoPagina from "../../components/EncabezadoPagina/EncabezadoPagina";
 import FiltrosRecetas from "../../components/FiltrosRecetas/FiltrosRecetas";
+import PiePagina from "../../components/PiePagina/PiePagina";
 import styles from "./Recetas.module.css";
 
 function Recetas() {
@@ -109,6 +110,8 @@ function Recetas() {
           <ListaRecetas recetas={recetasFiltradas} />
         </section>
       </main>
+
+      <PiePagina />
     </>
   );
 }

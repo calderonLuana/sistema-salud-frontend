@@ -13,6 +13,7 @@ import { filtrarTurnos } from "../../utils/filtrarTurnos";
 import ListaTurnos from "../../components/ListaTurnos/ListaTurnos";
 import EncabezadoPagina from "../../components/EncabezadoPagina/EncabezadoPagina";
 import FiltrosTurnos from "../../components/FiltrosTurnos/FiltrosTurnos";
+import PiePagina from "../../components/PiePagina/PiePagina";
 import styles from "./Turnos.module.css";
 
 function Turnos() {
@@ -122,6 +123,8 @@ function Turnos() {
           />
         </section>
       </main>
+
+      <PiePagina />
     </>
   );
 }

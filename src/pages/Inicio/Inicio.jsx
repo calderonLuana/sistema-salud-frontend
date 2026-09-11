@@ -10,6 +10,8 @@ import {
 
 import InformacionAfiliado from "../../components/InformacionAfiliado/InformacionAfiliado";
 import GrupoFamiliar from "../../components/GrupoFamiliar/GrupoFamiliar";
+import EncabezadoPagina from "../../components/EncabezadoPagina/EncabezadoPagina";
+import PiePagina from "../../components/PiePagina/PiePagina";
 
 function Inicio() {
   const { usuario } = useContext(AuthContext);
@@ -57,27 +59,31 @@ function Inicio() {
 
   return (
     <>
-      <h1>Inicio</h1>
+      <EncabezadoPagina titulo="Inicio" />
 
-      <p>
-        ¡Hola, {usuario.nombre}!
-      </p>
+      <main>
+        <p>
+          ¡Hola, {usuario.nombre}!
+        </p>
 
-      <p>
-        Bienvenido a tu espacio personal de salud.
-      </p>
+        <p>
+          Bienvenido a tu espacio personal de salud.
+        </p>
 
-      <InformacionAfiliado
-        afiliado={afiliado}
-      />
+        <InformacionAfiliado
+          afiliado={afiliado}
+        />
 
-      <GrupoFamiliar
-        integrantes={grupoFamiliar}
-      />
+        <GrupoFamiliar
+          integrantes={grupoFamiliar}
+        />
 
-      <ProximoTurno
-        turno={proximoTurno}
-      />
+        <ProximoTurno
+          turno={proximoTurno}
+        />
+      </main>
+
+      <PiePagina />
     </>
   );
 }

@@ -6,7 +6,7 @@
 
 .panelImagen {
   flex: 1;
-  background-color: #7c6fe0;
+  background-image: url("../../assets/imagenes/FondoLogin.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -106,18 +106,6 @@
   border-color: #7c6fe0;
 }
 
-.linkOlvide {
-  align-self: flex-end;
-  margin-top: -8px;
-  font-size: 13px;
-  color: #7c6fe0;
-  text-decoration: none;
-}
-
-.linkOlvide:hover {
-  text-decoration: underline;
-}
-
 .botonIngresar {
   padding: 12px;
   border: none;
@@ -132,6 +120,11 @@
 
 .botonIngresar:hover {
   background-color: #6a5ccf;
+}
+
+.botonIngresar:disabled {
+  background-color: #b8b0e8;
+  cursor: not-allowed;
 }
 
 .error {
