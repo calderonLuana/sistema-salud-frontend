@@ -8,14 +8,12 @@ function Registro() {
   const {
     register,
     handleSubmit,
-    watch,
+    formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
   const [errorRegistro, setErrorRegistro] = useState("");
   const [enviando, setEnviando] = useState(false);
-
-  const password = watch("password");
 
   async function onSubmit(data) {
     setErrorRegistro("");
@@ -105,15 +103,18 @@ function Registro() {
 
           <h2 className={styles.tituloFormMobile}>Crear cuenta</h2>
 
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.formulario}>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.formulario} noValidate>
             <label className={styles.label}>
               DNI
               <input
                 type="text"
                 placeholder="Ej: 12345678"
                 className={styles.input}
-                {...register("dni", { required: true })}
+                {...register("dni", { required: "El DNI es obligatorio." })}
               />
+              {errors.dni && (
+                <span className={styles.errorCampo}>{errors.dni.message}</span>
+              )}
             </label>
 
             <label className={styles.label}>
@@ -122,8 +123,14 @@ function Registro() {
                 type="password"
                 placeholder="••••••••"
                 className={styles.input}
-                {...register("password", { required: true, minLength: 4 })}
+                {...register("password", {
+                  required: "La contraseña es obligatoria.",
+                  minLength: { value: 4, message: "Debe tener al menos 4 caracteres." },
+                })}
               />
+              {errors.password && (
+                <span className={styles.errorCampo}>{errors.password.message}</span>
+              )}
             </label>
 
             <label className={styles.label}>
@@ -132,8 +139,11 @@ function Registro() {
                 type="password"
                 placeholder="••••••••"
                 className={styles.input}
-                {...register("confirmarPassword", { required: true })}
+                {...register("confirmarPassword", { required: "Confirmá tu contraseña." })}
               />
+              {errors.confirmarPassword && (
+                <span className={styles.errorCampo}>{errors.confirmarPassword.message}</span>
+              )}
             </label>
 
             <button type="submit" className={styles.botonIngresar} disabled={enviando}>

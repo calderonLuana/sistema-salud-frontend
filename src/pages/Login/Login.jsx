@@ -9,6 +9,7 @@ function Login() {
   const {
     register,
     handleSubmit,
+    formState: { errors },
   } = useForm();
 
   const { login } = useContext(AuthContext);
@@ -97,15 +98,18 @@ function Login() {
 
           <h2 className={styles.tituloFormMobile}>Bienvenido/a</h2>
 
-          <form onSubmit={handleSubmit(onSubmit)} className={styles.formulario}>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.formulario} noValidate>
             <label className={styles.label}>
               DNI
               <input
                 type="text"
                 placeholder="Ej: 12345678"
                 className={styles.input}
-                {...register("dni")}
+                {...register("dni", { required: "El DNI es obligatorio." })}
               />
+              {errors.dni && (
+                <span className={styles.errorCampo}>{errors.dni.message}</span>
+              )}
             </label>
 
             <label className={styles.label}>
@@ -114,8 +118,11 @@ function Login() {
                 type="password"
                 placeholder="••••••••"
                 className={styles.input}
-                {...register("password")}
+                {...register("password", { required: "La contraseña es obligatoria." })}
               />
+              {errors.password && (
+                <span className={styles.errorCampo}>{errors.password.message}</span>
+              )}
             </label>
 
             <Link to="/recuperar" className={styles.linkOlvide}>

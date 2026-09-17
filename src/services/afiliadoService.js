@@ -12,6 +12,12 @@ async function registro(datos) {
   return response.data;
 }
 
+async function recuperarPassword(datos) {
+  const response = await api.put("/afiliados/recuperar", datos);
+
+  return response.data;
+}
+
 async function obtenerAfiliado(id) {
   const response = await api.get(`/afiliados/${id}`);
 
@@ -27,6 +33,7 @@ async function obtenerGrupoFamiliar(id) {
 export {
   login,
   registro,
+  recuperarPassword,
   obtenerAfiliado,
   obtenerGrupoFamiliar
 };

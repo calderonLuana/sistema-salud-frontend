@@ -6,7 +6,7 @@
 
 .panelImagen {
   flex: 1;
-  background-color: #7c6fe0;
+  background-image: url("../../assets/imagenes/Fondo2.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -106,6 +106,12 @@
   border-color: #7c6fe0;
 }
 
+.errorCampo {
+  font-size: 12px;
+  font-weight: 500;
+  color: #dc2626 !important;
+}
+
 .linkOlvide {
   align-self: flex-end;
   margin-top: -8px;
@@ -164,40 +170,20 @@
   text-decoration: underline;
 }
 
-@media (max-width: 768px) {
-  .pantalla {
-    flex-direction: column;
+@media (max-width: 480px) {
+  .encabezado {
+    padding: 24px 20px 30px;
   }
 
-  .panelImagen {
-    flex: none;
-    height: 200px;
-    align-items: center;
-    justify-content: center;
+  .formulario {
+    padding: 24px 20px;
   }
 
-  .overlay {
-    padding: 24px;
-    display: flex;
-    justify-content: center;
+  .separador {
+    margin: 0 20px;
   }
 
-  .tituloImagen,
-  .subtituloImagen {
-    display: none;
-  }
-
-  .panelFormulario {
-    max-width: none;
-    padding: 32px 20px;
-  }
-
-  .tituloFormMobile {
-    display: block;
-    margin: 0 0 20px;
-    font-size: 22px;
-    font-weight: 700;
-    color: #1f2937;
-    text-align: center;
+  .textoRegistro {
+    padding: 16px 20px 24px;
   }
 }

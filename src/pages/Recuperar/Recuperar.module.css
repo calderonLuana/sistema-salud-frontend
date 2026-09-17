@@ -6,7 +6,7 @@
 
 .panelImagen {
   flex: 1;
-  background-image: url("../../assets/imagenes/Fondo3.jpg");
+  background-image: url("../../assets/imagenes/Fondo1.jpg");
   background-size: cover;
   background-position: center;
   display: flex;
@@ -140,6 +140,16 @@
   text-align: center;
 }
 
+.mensajeExito {
+  margin: 0;
+  padding: 16px;
+  background-color: #dcfce7;
+  color: #166534;
+  border-radius: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
 .separador {
   height: 1px;
   background-color: #d9d4f5;
@@ -176,6 +186,7 @@
   }
 
   .overlay {
+    
     padding: 24px;
     display: flex;
     justify-content: center;
@@ -199,8 +210,5 @@
     color: #1f2937;
     text-align: center;
   }
-
-
-
 
 }

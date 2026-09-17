@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "../pages/Login/Login";
 import Registro from "../pages/Registro/Registro";
+import Recuperar from "../pages/Recuperar/Recuperar";
 import Inicio from "../pages/Inicio/Inicio";
 import Turnos from "../pages/Turnos/Turnos";
 import SolicitarTurno from "../pages/SolicitarTurno/SolicitarTurno";
@@ -19,6 +20,7 @@ function AppRouter() {
         <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/recuperar" element={<Recuperar />} />
 
         {/* Rutas privadas */}
         <Route
