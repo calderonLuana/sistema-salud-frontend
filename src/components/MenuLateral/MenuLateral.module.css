@@ -1,0 +1,166 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 40;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  max-width: 85vw;
+  background-color: #ffffff;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform 0.25s ease;
+  box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+}
+
+.drawerAbierto {
+  transform: translateX(0);
+}
+
+.tarjetaUsuario {
+  background-color: #ede9fe;
+  padding: 24px 20px;
+  position: relative;
+}
+
+.botonCerrar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  color: #534ab7;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+}
+
+.botonCerrar svg {
+  width: 20px;
+  height: 20px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #7c6fe0;
+  margin-bottom: 10px;
+}
+
+.avatar svg {
+  width: 26px;
+  height: 26px;
+}
+
+.nombreUsuario {
+  margin: 0 0 2px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #3c3489;
+}
+
+.dniUsuario {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #534ab7;
+}
+
+.estadoUsuario {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #166534;
+}
+
+.estadoUsuario svg {
+  width: 14px;
+  height: 14px;
+}
+
+.navegacion {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+}
+
+.itemMenu {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border: none;
+  background: none;
+  border-left: 4px solid transparent;
+  font-size: 15px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  text-align: left;
+}
+
+.itemMenu:hover {
+  background-color: #f5f3ff;
+}
+
+.itemActivo {
+  border-left-color: #7c6fe0;
+  background-color: #f5f3ff;
+  color: #534ab7;
+}
+
+.iconoItem {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  color: inherit;
+}
+
+.iconoItem svg {
+  width: 100%;
+  height: 100%;
+}
+
+.separador {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 8px 20px;
+}
+
+.botonSalir {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border: none;
+  background: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #7c6fe0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.botonSalir:hover {
+  background-color: #f5f3ff;
+}
+
+.botonSalir svg {
+  width: 22px;
+  height: 22px;
+}

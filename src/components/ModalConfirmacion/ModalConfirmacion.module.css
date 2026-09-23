@@ -1,0 +1,70 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 60;
+  padding: 16px;
+}
+
+.modal {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.titulo {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.mensaje {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+.acciones {
+  display: flex;
+  gap: 10px;
+}
+
+.botonCancelar {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  background-color: #ffffff;
+  color: #374151;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botonCancelar:hover {
+  background-color: #f9fafb;
+}
+
+.botonConfirmar {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 999px;
+  background-color: #dc2626;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.botonConfirmar:hover {
+  background-color: #b91c1c;
+}
