@@ -4,6 +4,7 @@ import Login from "../pages/Login/Login";
 import Registro from "../pages/Registro/Registro";
 import Recuperar from "../pages/Recuperar/Recuperar";
 import Inicio from "../pages/Inicio/Inicio";
+import Perfil from "../pages/Perfil/Perfil";
 import Turnos from "../pages/Turnos/Turnos";
 import SolicitarTurno from "../pages/SolicitarTurno/SolicitarTurno";
 import EditarTurno from "../pages/EditarTurno/EditarTurno";
@@ -28,6 +29,15 @@ function AppRouter() {
           element={
             <ProtectedRoute>
               <Inicio />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/perfil"
+          element={
+            <ProtectedRoute>
+              <Perfil />
             </ProtectedRoute>
           }
         />
