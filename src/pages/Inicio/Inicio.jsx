@@ -3,11 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { obtenerTurnosProximos } from "../../services/turnoService";
 import { obtenerRecetasAfiliado } from "../../services/recetaService";
-
-import {
-  obtenerAfiliado,
-  obtenerGrupoFamiliar
-} from "../../services/afiliadoService";
+import { obtenerAfiliado } from "../../services/afiliadoService";
 
 import EncabezadoInicio from "../../components/EncabezadoInicio/EncabezadoInicio";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
@@ -15,24 +11,60 @@ import ModalConfirmacion from "../../components/ModalConfirmacion/ModalConfirmac
 import PiePagina from "../../components/PiePagina/PiePagina";
 import styles from "./Inicio.module.css";
 
-const ETIQUETA_TIPO = {
-  TITULAR: "Afiliado titular",
-  CONYUGE: "Afiliado cónyuge",
-  HIJO: "Afiliado",
-};
+function IconoCampana() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 9a6 6 0 0 1 12 0v4l1.5 3h-15L6 13V9Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+      <path d="M10 19a2 2 0 0 0 4 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  );
+}
 
-const ETIQUETA_PARENTESCO = {
-  TITULAR: "Titular",
-  CONYUGE: "Cónyuge",
-  HIJO: "Hijo/a",
-};
+function IconoCartilla() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="4" y="3" width="16" height="18" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="10" cy="10" r="2" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M7 15c0.6-1.5 1.8-2 3-2s2.4 0.5 3 2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M15 8h2M15 18h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function IconoTurnos() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <rect x="6.5" y="12" width="3" height="3" fill="currentColor" />
+      <rect x="10.5" y="12" width="3" height="3" fill="currentColor" />
+    </svg>
+  );
+}
+
+function IconoRecetas() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="3" y="5" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M3 9h18M8 3v4M16 3v4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M8 20l2-2 2 2 2-2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function IconoFlecha() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 6l6 6-6 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 function Inicio() {
   const { usuario, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [afiliado, setAfiliado] = useState(null);
-  const [grupoFamiliar, setGrupoFamiliar] = useState([]);
   const [proximoTurno, setProximoTurno] = useState(null);
   const [ultimaRecetaAprobada, setUltimaRecetaAprobada] = useState(null);
   const [menuAbierto, setMenuAbierto] = useState(false);
@@ -45,12 +77,10 @@ function Inicio() {
     async function cargarDatos() {
       try {
         const datosAfiliado = await obtenerAfiliado(usuario.id);
-        const datosGrupo = await obtenerGrupoFamiliar(usuario.id);
         const turnos = await obtenerTurnosProximos(usuario.id);
         const recetas = await obtenerRecetasAfiliado(usuario.id);
 
         setAfiliado(datosAfiliado);
-        setGrupoFamiliar(datosGrupo.Afiliados);
 
         if (turnos.length > 0) {
           setProximoTurno(turnos[0]);
@@ -117,91 +147,67 @@ function Inicio() {
       />
 
       <main className={styles.contenedor}>
+        <p className={styles.saludoChico}>Hola,</p>
         <h1 className={styles.saludo}>
-          Hola, <span className={styles.nombreDestacado}>{usuario.nombre}!</span>
+          {usuario.nombre} {afiliado?.apellido}
         </h1>
-
-        <div className={styles.tarjetaAfiliado}>
-          <div className={styles.iconoGrupo}>
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="9" cy="8" r="3" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M3 20c0.8-3 3-4.5 6-4.5s5.2 1.5 6 4.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-              <circle cx="17" cy="7" r="2.4" stroke="currentColor" strokeWidth="1.6" />
-              <path d="M15 20c0.5-2.3 1.9-3.6 4-3.9" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
-            </svg>
-          </div>
-
-          <div className={styles.infoAfiliado}>
-            <p className={styles.tipoAfiliado}>
-              {ETIQUETA_TIPO[afiliado?.tipoAfiliado] || "Afiliado"}
-            </p>
-            <p className={styles.cantidadGrupo}>
-              Grupo familiar: {grupoFamiliar.length} {grupoFamiliar.length === 1 ? "persona" : "personas"}
-            </p>
-          </div>
-
-          {afiliado?.estado === "ACTIVO" && (
-            <div className={styles.badgeEstado}>
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.8" />
-                <path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Afiliación activa
-            </div>
-          )}
-        </div>
+        <p className={styles.subtitulo}>Bienvenido a tu espacio de salud.</p>
 
         <div className={styles.gridDashboard}>
-          <div className={styles.tarjetaResumen}>
-            <h2 className={styles.tituloResumen}>Notificaciones y avisos</h2>
 
-            <div className={styles.contenidoResumen}>
+          <div className={styles.tarjeta}>
+            <div className={styles.iconoTarjeta}>
+              <IconoCampana />
+            </div>
+
+            <h2 className={styles.tituloTarjeta}>Notificaciones</h2>
+
+            <div className={styles.contenidoTarjeta}>
               <p className={styles.sinDatos}>No hay notificaciones por el momento.</p>
             </div>
 
-            <div className={styles.separadorResumen}></div>
+            <div className={styles.separadorTarjeta}></div>
 
-            <span className={styles.linkResumenInactivo}>
-              Ver todas las notificaciones
+            <span className={styles.linkInactivo}>
+              Ver todas
+              <IconoFlecha />
             </span>
           </div>
 
-          <div className={styles.tarjetaResumen}>
-            <h2 className={styles.tituloResumen}>Mi grupo familiar</h2>
-
-            <div className={styles.contenidoResumen}>
-              <div className={styles.listaFamiliar}>
-                {grupoFamiliar.map((integrante) => (
-                  <div key={integrante.id} className={styles.filaFamiliar}>
-                    <span className={styles.nombreFamiliar}>
-                      {integrante.nombre}
-                    </span>
-                    <span className={styles.parentescoFamiliar}>
-                      {ETIQUETA_PARENTESCO[integrante.tipoAfiliado] || integrante.tipoAfiliado}
-                    </span>
-                  </div>
-                ))}
-              </div>
+          <div className={styles.tarjeta}>
+            <div className={styles.iconoTarjeta}>
+              <IconoCartilla />
             </div>
 
-            <div className={styles.separadorResumen}></div>
+            <h2 className={styles.tituloTarjeta}>Cartilla médica</h2>
 
-            <span className={styles.linkResumenInactivo}>
-              Ver grupo familiar
+            <div className={styles.contenidoTarjeta}>
+              <p className={styles.sinDatos}>Sin médico de cabecera asignado.</p>
+            </div>
+
+            <div className={styles.separadorTarjeta}></div>
+
+            <span className={styles.linkInactivo}>
+              Ver cartilla completa
+              <IconoFlecha />
             </span>
           </div>
 
-          <div className={styles.tarjetaResumen}>
-            <h2 className={styles.tituloResumen}>Mis turnos</h2>
+          <div className={styles.tarjeta}>
+            <div className={styles.iconoTarjeta}>
+              <IconoTurnos />
+            </div>
 
-            <div className={styles.contenidoResumen}>
+            <h2 className={styles.tituloTarjeta}>Turnos</h2>
+
+            <div className={styles.contenidoTarjeta}>
               {proximoTurno ? (
                 <>
-                  <p className={styles.etiquetaResumen}>Próximo turno:</p>
-                  <p className={styles.valorResumen}>
+                  <p className={styles.etiquetaChica}>Próximo turno:</p>
+                  <p className={styles.valorTarjeta}>
                     {proximoTurno.Disponibilidad?.Profesional?.Especialidad?.nombre}
                   </p>
-                  <p className={styles.valorResumenChico}>
+                  <p className={styles.valorChico}>
                     {proximoTurno.Disponibilidad?.fecha} • {proximoTurno.Disponibilidad?.hora}
                   </p>
                 </>
@@ -210,25 +216,29 @@ function Inicio() {
               )}
             </div>
 
-            <div className={styles.separadorResumen}></div>
+            <div className={styles.separadorTarjeta}></div>
 
-            <Link to="/turnos" className={styles.linkResumen}>
+            <Link to="/turnos" className={styles.linkActivo}>
               Ver todos los turnos
+              <IconoFlecha />
             </Link>
           </div>
 
-          <div className={styles.tarjetaResumen}>
-            <h2 className={styles.tituloResumen}>Mis recetas</h2>
+          <div className={styles.tarjeta}>
+            <div className={styles.iconoTarjeta}>
+              <IconoRecetas />
+            </div>
 
-            <div className={styles.contenidoResumen}>
+            <h2 className={styles.tituloTarjeta}>Recetas</h2>
+
+            <div className={styles.contenidoTarjeta}>
               {ultimaRecetaAprobada ? (
                 <>
-                  <p className={styles.etiquetaResumen}>Última receta aprobada:</p>
-                  <p className={styles.valorResumen}>
+                  <p className={styles.etiquetaChica}>Última receta aprobada:</p>
+                  <p className={styles.valorTarjeta}>
                     {ultimaRecetaAprobada.medicamento?.nombre}
                   </p>
-                  <p className={styles.estadoAprobada}>Aprobada</p>
-                  <p className={styles.valorResumenChico}>
+                  <p className={styles.valorChico}>
                     {new Date(ultimaRecetaAprobada.fechaSolicitud).toLocaleDateString("es-AR")}
                   </p>
                 </>
@@ -237,31 +247,14 @@ function Inicio() {
               )}
             </div>
 
-            <div className={styles.separadorResumen}></div>
+            <div className={styles.separadorTarjeta}></div>
 
-            <Link to="/recetas" className={styles.linkResumen}>
+            <Link to="/recetas" className={styles.linkActivo}>
               Ver todas las recetas
+              <IconoFlecha />
             </Link>
           </div>
-        </div>
 
-        <div className={styles.gridObraSocial}>
-          <div className={styles.tarjetaInfo}>
-            <h2 className={styles.tituloInfo}>Información importante</h2>
-            <p className={styles.textoInfo}>
-              Recordá que los turnos pueden cancelarse hasta 24 horas antes
-              sin cargo. Mantené tus datos de contacto actualizados para
-              recibir novedades del Centro LAV.
-            </p>
-          </div>
-
-          <div className={styles.tarjetaInfo}>
-            <h2 className={styles.tituloInfo}>Beneficios</h2>
-            <p className={styles.textoInfo}>
-              Como afiliado, accedés a descuentos en farmacias adheridas y
-              consultas bonificadas en especialidades seleccionadas.
-            </p>
-          </div>
         </div>
       </main>
 

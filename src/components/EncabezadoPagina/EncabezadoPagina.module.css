@@ -26,6 +26,27 @@
   padding-left: 12px;
 }
 
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  justify-content: center;
+  margin-right: 36px;
+}
+
+.logo svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.logo span {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
 .iconoPerfil {
   display: inline-flex;
   align-items: center;
@@ -36,4 +57,5 @@
   background-color: rgba(255, 255, 255, 0.15);
   text-decoration: none;
   font-size: 18px;
+  flex-shrink: 0;
 }
