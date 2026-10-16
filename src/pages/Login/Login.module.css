@@ -170,20 +170,40 @@
   text-decoration: underline;
 }
 
-@media (max-width: 480px) {
-  .encabezado {
-    padding: 24px 20px 30px;
+@media (max-width: 768px) {
+  .pantalla {
+    flex-direction: column;
   }
 
-  .formulario {
-    padding: 24px 20px;
+  .panelImagen {
+    flex: none;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
   }
 
-  .separador {
-    margin: 0 20px;
+  .overlay {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
   }
 
-  .textoRegistro {
-    padding: 16px 20px 24px;
+  .tituloImagen,
+  .subtituloImagen {
+    display: none;
+  }
+
+  .panelFormulario {
+    max-width: none;
+    padding: 32px 20px;
+  }
+
+  .tituloFormMobile {
+    display: block;
+    margin: 0 0 20px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #1f2937;
+    text-align: center;
   }
 }

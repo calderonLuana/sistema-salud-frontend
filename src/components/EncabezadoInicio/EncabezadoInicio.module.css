@@ -21,6 +21,13 @@
   height: 24px;
 }
 
+.titulo {
+  flex: 1;
+  margin-left: 16px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
 .logo {
   display: flex;
   align-items: center;
@@ -42,8 +49,8 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #3c3489;
   text-decoration: none;
 }
 

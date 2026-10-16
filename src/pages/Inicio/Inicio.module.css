@@ -9,7 +9,7 @@
 .saludoChico {
   margin: 0;
   font-size: 16px;
-  color: #6b7280;
+  color: #5f646d;
 }
 
 .saludo {
@@ -22,7 +22,7 @@
 .subtitulo {
   margin: 0 0 28px;
   font-size: 14px;
-  color: #6b7280;
+  color: #5f646d;
 }
 
 .gridDashboard {
@@ -44,12 +44,14 @@
 }
 
 .tarjeta {
-  background-color: #d2d0d4;
+  background-color: #dac4e8;
   border-radius: 16px;
+  border: 1px solid #c2abd5; /* nuevo*/
   padding: 22px;
   display: flex;
   flex-direction: column;
   min-height: 220px;
+  box-shadow: 0 4px 10px rgba(52, 37, 65, 0.53); /* nuevo*/
 }
 
 .iconoTarjeta {
@@ -78,7 +80,7 @@
 .etiquetaChica {
   margin: 0 0 2px;
   font-size: 13px;
-  color: #6b7280;
+  color: #5f646d;
 }
 
 .valorTarjeta {
@@ -91,17 +93,17 @@
 .valorChico {
   margin: 0;
   font-size: 13px;
-  color: #6b7280;
+  color: #5f646d;
 }
 
 .sinDatos {
   margin: 0;
   font-size: 13px;
-  color: #9ca3af;
+  color: #5f646d;
 }
 
 .separadorTarjeta {
-  border-bottom: 1px solid #ded9f5;
+  border-bottom: 1px solid #7c7588a0;
   margin: 14px 0 12px;
 }
 
@@ -130,7 +132,7 @@
 }
 
 .linkInactivo {
-  color: #b3aee0;
+  color: #5f646d;
   cursor: default;
 }
 

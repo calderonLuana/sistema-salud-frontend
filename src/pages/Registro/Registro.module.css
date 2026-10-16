@@ -6,7 +6,7 @@
 
 .panelImagen {
   flex: 1;
-  background-image: url("../../assets/imagenes/Fondo3.jpg");
+  background-color: #6a5ccf;
   background-size: cover;
   background-position: center;
   display: flex;

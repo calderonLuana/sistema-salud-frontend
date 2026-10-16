@@ -15,6 +15,10 @@ function Registro() {
   const [errorRegistro, setErrorRegistro] = useState("");
   const [enviando, setEnviando] = useState(false);
 
+  function filtrarSoloNumeros(evento) {
+    evento.target.value = evento.target.value.replace(/\D/g, "").slice(0, 8);
+  }
+
   async function onSubmit(data) {
     setErrorRegistro("");
 
@@ -108,9 +112,18 @@ function Registro() {
               DNI
               <input
                 type="text"
+                inputMode="numeric"
                 placeholder="Ej: 12345678"
                 className={styles.input}
-                {...register("dni", { required: "El DNI es obligatorio." })}
+                maxLength={8}
+                onInput={filtrarSoloNumeros}
+                {...register("dni", {
+                  required: "El DNI es obligatorio.",
+                  pattern: {
+                    value: /^[0-9]{7,8}$/,
+                    message: "El DNI debe tener 7 u 8 números.",
+                  },
+                })}
               />
               {errors.dni && (
                 <span className={styles.errorCampo}>{errors.dni.message}</span>

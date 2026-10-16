@@ -1,14 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { obtenerTurnosProximos } from "../../services/turnoService";
 import { obtenerRecetasAfiliado } from "../../services/recetaService";
-import { obtenerAfiliado } from "../../services/afiliadoService";
 
-import EncabezadoInicio from "../../components/EncabezadoInicio/EncabezadoInicio";
-import MenuLateral from "../../components/MenuLateral/MenuLateral";
-import ModalConfirmacion from "../../components/ModalConfirmacion/ModalConfirmacion";
-import PiePagina from "../../components/PiePagina/PiePagina";
 import styles from "./Inicio.module.css";
 
 function IconoCampana() {
@@ -61,14 +56,11 @@ function IconoFlecha() {
 }
 
 function Inicio() {
-  const { usuario, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const { usuario } = useContext(AuthContext);
+  const { afiliado } = useOutletContext();
 
-  const [afiliado, setAfiliado] = useState(null);
   const [proximoTurno, setProximoTurno] = useState(null);
   const [ultimaRecetaAprobada, setUltimaRecetaAprobada] = useState(null);
-  const [menuAbierto, setMenuAbierto] = useState(false);
-  const [confirmarSalirAbierto, setConfirmarSalirAbierto] = useState(false);
 
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState("");
@@ -76,11 +68,8 @@ function Inicio() {
   useEffect(() => {
     async function cargarDatos() {
       try {
-        const datosAfiliado = await obtenerAfiliado(usuario.id);
         const turnos = await obtenerTurnosProximos(usuario.id);
         const recetas = await obtenerRecetasAfiliado(usuario.id);
-
-        setAfiliado(datosAfiliado);
 
         if (turnos.length > 0) {
           setProximoTurno(turnos[0]);
@@ -106,16 +95,6 @@ function Inicio() {
     cargarDatos();
   }, [usuario.id]);
 
-  function pedirConfirmacionSalir() {
-    setMenuAbierto(false);
-    setConfirmarSalirAbierto(true);
-  }
-
-  function confirmarSalir() {
-    logout();
-    navigate("/login");
-  }
-
   if (cargando) {
     return <p>Cargando información...</p>;
   }
@@ -125,141 +104,117 @@ function Inicio() {
   }
 
   return (
-    <>
-      <EncabezadoInicio onAbrirMenu={() => setMenuAbierto(true)} />
+    <main className={styles.contenedor}>
+      <p className={styles.saludoChico}>Hola,</p>
+      <h1 className={styles.saludo}>
+        {usuario.nombre} {afiliado?.apellido}
+      </h1>
+      <p className={styles.subtitulo}>Bienvenido a tu espacio de salud.</p>
 
-      <MenuLateral
-        abierto={menuAbierto}
-        onCerrar={() => setMenuAbierto(false)}
-        usuario={usuario}
-        afiliado={afiliado}
-        onSalir={pedirConfirmacionSalir}
-      />
+      <div className={styles.gridDashboard}>
 
-      <ModalConfirmacion
-        abierto={confirmarSalirAbierto}
-        titulo="Cerrar sesión"
-        mensaje="¿Estás seguro de que querés cerrar sesión?"
-        textoConfirmar="Cerrar sesión"
-        textoCancelar="Cancelar"
-        onConfirmar={confirmarSalir}
-        onCancelar={() => setConfirmarSalirAbierto(false)}
-      />
-
-      <main className={styles.contenedor}>
-        <p className={styles.saludoChico}>Hola,</p>
-        <h1 className={styles.saludo}>
-          {usuario.nombre} {afiliado?.apellido}
-        </h1>
-        <p className={styles.subtitulo}>Bienvenido a tu espacio de salud.</p>
-
-        <div className={styles.gridDashboard}>
-
-          <div className={styles.tarjeta}>
-            <div className={styles.iconoTarjeta}>
-              <IconoCampana />
-            </div>
-
-            <h2 className={styles.tituloTarjeta}>Notificaciones</h2>
-
-            <div className={styles.contenidoTarjeta}>
-              <p className={styles.sinDatos}>No hay notificaciones por el momento.</p>
-            </div>
-
-            <div className={styles.separadorTarjeta}></div>
-
-            <span className={styles.linkInactivo}>
-              Ver todas
-              <IconoFlecha />
-            </span>
+        <div className={styles.tarjeta}>
+          <div className={styles.iconoTarjeta}>
+            <IconoCampana />
           </div>
 
-          <div className={styles.tarjeta}>
-            <div className={styles.iconoTarjeta}>
-              <IconoCartilla />
-            </div>
+          <h2 className={styles.tituloTarjeta}>Notificaciones</h2>
 
-            <h2 className={styles.tituloTarjeta}>Cartilla médica</h2>
-
-            <div className={styles.contenidoTarjeta}>
-              <p className={styles.sinDatos}>Sin médico de cabecera asignado.</p>
-            </div>
-
-            <div className={styles.separadorTarjeta}></div>
-
-            <span className={styles.linkInactivo}>
-              Ver cartilla completa
-              <IconoFlecha />
-            </span>
+          <div className={styles.contenidoTarjeta}>
+            <p className={styles.sinDatos}>No hay notificaciones por el momento.</p>
           </div>
 
-          <div className={styles.tarjeta}>
-            <div className={styles.iconoTarjeta}>
-              <IconoTurnos />
-            </div>
+          <div className={styles.separadorTarjeta}></div>
 
-            <h2 className={styles.tituloTarjeta}>Turnos</h2>
-
-            <div className={styles.contenidoTarjeta}>
-              {proximoTurno ? (
-                <>
-                  <p className={styles.etiquetaChica}>Próximo turno:</p>
-                  <p className={styles.valorTarjeta}>
-                    {proximoTurno.Disponibilidad?.Profesional?.Especialidad?.nombre}
-                  </p>
-                  <p className={styles.valorChico}>
-                    {proximoTurno.Disponibilidad?.fecha} • {proximoTurno.Disponibilidad?.hora}
-                  </p>
-                </>
-              ) : (
-                <p className={styles.sinDatos}>No tenés turnos próximos.</p>
-              )}
-            </div>
-
-            <div className={styles.separadorTarjeta}></div>
-
-            <Link to="/turnos" className={styles.linkActivo}>
-              Ver todos los turnos
-              <IconoFlecha />
-            </Link>
-          </div>
-
-          <div className={styles.tarjeta}>
-            <div className={styles.iconoTarjeta}>
-              <IconoRecetas />
-            </div>
-
-            <h2 className={styles.tituloTarjeta}>Recetas</h2>
-
-            <div className={styles.contenidoTarjeta}>
-              {ultimaRecetaAprobada ? (
-                <>
-                  <p className={styles.etiquetaChica}>Última receta aprobada:</p>
-                  <p className={styles.valorTarjeta}>
-                    {ultimaRecetaAprobada.medicamento?.nombre}
-                  </p>
-                  <p className={styles.valorChico}>
-                    {new Date(ultimaRecetaAprobada.fechaSolicitud).toLocaleDateString("es-AR")}
-                  </p>
-                </>
-              ) : (
-                <p className={styles.sinDatos}>No tenés recetas aprobadas.</p>
-              )}
-            </div>
-
-            <div className={styles.separadorTarjeta}></div>
-
-            <Link to="/recetas" className={styles.linkActivo}>
-              Ver todas las recetas
-              <IconoFlecha />
-            </Link>
-          </div>
-
+          <span className={styles.linkInactivo}>
+            Ver todas
+            <IconoFlecha />
+          </span>
         </div>
-      </main>
 
-      <PiePagina />
-    </>
+        <div className={styles.tarjeta}>
+          <div className={styles.iconoTarjeta}>
+            <IconoCartilla />
+          </div>
+
+          <h2 className={styles.tituloTarjeta}>Cartilla médica</h2>
+
+          <div className={styles.contenidoTarjeta}>
+            <p className={styles.sinDatos}>Sin médico de cabecera asignado.</p>
+          </div>
+
+          <div className={styles.separadorTarjeta}></div>
+
+          <span className={styles.linkInactivo}>
+            Ver cartilla completa
+            <IconoFlecha />
+          </span>
+        </div>
+
+        <div className={styles.tarjeta}>
+          <div className={styles.iconoTarjeta}>
+            <IconoTurnos />
+          </div>
+
+          <h2 className={styles.tituloTarjeta}>Turnos</h2>
+
+          <div className={styles.contenidoTarjeta}>
+            {proximoTurno ? (
+              <>
+                <p className={styles.etiquetaChica}>Próximo turno:</p>
+                <p className={styles.valorTarjeta}>
+                  {proximoTurno.Disponibilidad?.Profesional?.Especialidad?.nombre}
+                </p>
+                <p className={styles.valorChico}>
+                  {proximoTurno.Disponibilidad?.fecha} • {proximoTurno.Disponibilidad?.hora}
+                </p>
+              </>
+            ) : (
+              <p className={styles.sinDatos}>No tenés turnos próximos.</p>
+            )}
+          </div>
+
+          <div className={styles.separadorTarjeta}></div>
+
+          <Link to="/turnos" className={styles.linkActivo}>
+            Ver todos los turnos
+            <IconoFlecha />
+          </Link>
+        </div>
+
+        <div className={styles.tarjeta}>
+          <div className={styles.iconoTarjeta}>
+            <IconoRecetas />
+          </div>
+
+          <h2 className={styles.tituloTarjeta}>Recetas</h2>
+
+          <div className={styles.contenidoTarjeta}>
+            {ultimaRecetaAprobada ? (
+              <>
+                <p className={styles.etiquetaChica}>Última receta aprobada:</p>
+                <p className={styles.valorTarjeta}>
+                  {ultimaRecetaAprobada.medicamento?.nombre}
+                </p>
+                <p className={styles.valorChico}>
+                  {new Date(ultimaRecetaAprobada.fechaSolicitud).toLocaleDateString("es-AR")}
+                </p>
+              </>
+            ) : (
+              <p className={styles.sinDatos}>No tenés recetas aprobadas.</p>
+            )}
+          </div>
+
+          <div className={styles.separadorTarjeta}></div>
+
+          <Link to="/recetas" className={styles.linkActivo}>
+            Ver todas las recetas
+            <IconoFlecha />
+          </Link>
+        </div>
+
+      </div>
+    </main>
   );
 }
 

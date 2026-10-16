@@ -12,41 +12,68 @@ import Recetas from "../pages/Recetas/Recetas";
 import SolicitarReceta from "../pages/SolicitarReceta/SolicitarReceta";
 import RenovarReceta from "../pages/RenovarReceta/RenovarReceta";
 import ProtectedRoute from "./ProtectedRoute";
+import PublicRoute from "./PublicRoute";
+import LayoutPrincipal from "../layouts/LayoutPrincipal/LayoutPrincipal";
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Rutas públicas */}
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/registro" element={<Registro />} />
-        <Route path="/recuperar" element={<Recuperar />} />
-
-        {/* Rutas privadas */}
+        {/* Rutas públicas (si ya hay sesión, redirigen a /inicio) */}
         <Route
-          path="/inicio"
+          path="/"
           element={
-            <ProtectedRoute>
-              <Inicio />
-            </ProtectedRoute>
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
           }
         />
 
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/registro"
+          element={
+            <PublicRoute>
+              <Registro />
+            </PublicRoute>
+          }
+        />
+
+        <Route
+          path="/recuperar"
+          element={
+            <PublicRoute>
+              <Recuperar />
+            </PublicRoute>
+          }
+        />
+
+        {/* Rutas privadas con layout compartido (header, menú lateral y footer) */}
+        <Route
+          element={
+            <ProtectedRoute>
+              <LayoutPrincipal />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/turnos" element={<Turnos />} />
+        </Route>
+
+        {/* Rutas privadas que todavía tienen su propio encabezado */}
         <Route
           path="/perfil"
           element={
             <ProtectedRoute>
               <Perfil />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/turnos"
-          element={
-            <ProtectedRoute>
-              <Turnos />
             </ProtectedRoute>
           }
         />

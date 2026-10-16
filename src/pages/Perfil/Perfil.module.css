@@ -17,11 +17,14 @@
   display: flex;
   align-items: flex-start;
   gap: 18px;
-  background-color: #e3dcf9;
+  background-color: #dac4e8;
   border-radius: 16px;
+  border: 1px solid #c2abd5; /* nuevo*/
   padding: 22px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+    box-shadow: 0 4px 10px rgba(52, 37, 65, 0.53); /* nuevo*/
+
 }
 
 .avatar {
@@ -52,7 +55,7 @@
 
 .tipoInline {
   font-weight: 400;
-  color: #6b7280;
+  color: #5f646d;
   font-size: 18px;
 }
 
@@ -77,14 +80,14 @@
 
 .tipoInline {
   font-weight: 400;
-  color: #6b7280;
+  color: #5f646d;
   font-size: 16px;
 }
 
 .datoPerfil {
   margin: 0 0 4px;
   font-size: 15px;
-  color: #4b5563;
+  color: #5f646d;
 }
 
 .estadoActivo {
@@ -106,8 +109,10 @@
 .tarjetaObraSocial {
   background-color: #f2f0fb;
   border-radius: 16px;
+   border: 1px solid #c2abd5; /* nuevo*/
   padding: 22px;
   margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(52, 37, 65, 0.53); /* nuevo*/
 }
 
 .encabezadoTarjeta {
@@ -121,7 +126,6 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: #ffffff;
   color: #3c3489;
   display: flex;
   align-items: center;
@@ -161,7 +165,7 @@
 
 .filaIntegrante {
   padding: 14px 0 0;
-  border-top: 1px solid #ded9f5;
+  border-top: 1px solid #7c7588a0;
 }
 
 .filaIntegrante:first-child {
@@ -186,6 +190,8 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  
+  
 }
 
 .itemContacto {

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { login as loginService } from "../../services/afiliadoService";
 import { AuthContext } from "../../context/AuthContext";
@@ -14,7 +14,17 @@ function Login() {
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [errorLogin, setErrorLogin] = useState("");
+  const [errorLogin, setErrorLogin] = useState(
+    () => sessionStorage.getItem("mensajeSesion") || ""
+  );
+
+  useEffect(() => {
+    sessionStorage.removeItem("mensajeSesion");
+  }, []);
+
+  function filtrarSoloNumeros(evento) {
+    evento.target.value = evento.target.value.replace(/\D/g, "").slice(0, 8);
+  }
 
   async function onSubmit(data) {
     setErrorLogin("");
@@ -103,9 +113,18 @@ function Login() {
               DNI
               <input
                 type="text"
+                inputMode="numeric"
                 placeholder="Ej: 12345678"
                 className={styles.input}
-                {...register("dni", { required: "El DNI es obligatorio." })}
+                maxLength={8}
+                onInput={filtrarSoloNumeros}
+                {...register("dni", {
+                  required: "El DNI es obligatorio.",
+                  pattern: {
+                    value: /^[0-9]{7,8}$/,
+                    message: "El DNI debe tener 7 u 8 números.",
+                  },
+                })}
               />
               {errors.dni && (
                 <span className={styles.errorCampo}>{errors.dni.message}</span>

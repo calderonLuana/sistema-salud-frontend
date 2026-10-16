@@ -11,9 +11,7 @@ import {
 import { filtrarTurnos } from "../../utils/filtrarTurnos";
 
 import ListaTurnos from "../../components/ListaTurnos/ListaTurnos";
-import EncabezadoPagina from "../../components/EncabezadoPagina/EncabezadoPagina";
 import FiltrosTurnos from "../../components/FiltrosTurnos/FiltrosTurnos";
-import PiePagina from "../../components/PiePagina/PiePagina";
 import styles from "./Turnos.module.css";
 
 function Turnos() {
@@ -89,43 +87,37 @@ function Turnos() {
   }
 
   return (
-    <>
-      <EncabezadoPagina titulo="Turnos" />
+    <main className={styles.contenedor}>
+      <header className={styles.encabezado}>
+        <h1>Mis Turnos</h1>
+        <p>Consultá y administrá tus turnos médicos.</p>
+      </header>
 
-      <main className={styles.contenedor}>
-        <header className={styles.encabezado}>
-          <h1>Mis Turnos</h1>
-          <p>Consultá y administrá tus turnos médicos.</p>
-        </header>
+      <Link to="/turnos/solicitar">+ Solicitar turno</Link>
 
-        <Link to="/turnos/solicitar">+ Solicitar turno</Link>
+      <FiltrosTurnos
+        texto={textoFiltro}
+        onCambiarTexto={setTextoFiltro}
+        estado={estadoFiltro}
+        onCambiarEstado={setEstadoFiltro}
+      />
 
-        <FiltrosTurnos
-          texto={textoFiltro}
-          onCambiarTexto={setTextoFiltro}
-          estado={estadoFiltro}
-          onCambiarEstado={setEstadoFiltro}
+      <section className={styles.seccion}>
+        <ListaTurnos
+          titulo="Próximos"
+          turnos={proximosFiltrados}
+          onCancelar={manejarCancelacion}
         />
+      </section>
 
-        <section className={styles.seccion}>
-          <ListaTurnos
-            titulo="Próximos"
-            turnos={proximosFiltrados}
-            onCancelar={manejarCancelacion}
-          />
-        </section>
-
-        <section className={styles.seccion}>
-          <ListaTurnos
-            titulo="Historial"
-            turnos={historialFiltrado}
-            onCancelar={manejarCancelacion}
-          />
-        </section>
-      </main>
-
-      <PiePagina />
-    </>
+      <section className={styles.seccion}>
+        <ListaTurnos
+          titulo="Historial"
+          turnos={historialFiltrado}
+          onCancelar={manejarCancelacion}
+        />
+      </section>
+    </main>
   );
 }
 

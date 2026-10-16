@@ -19,6 +19,7 @@
   transform: translateX(-100%);
   transition: transform 0.25s ease;
   box-shadow: 4px 0 16px rgba(0, 0, 0, 0.12);
+  
 }
 
 .drawerAbierto {
@@ -26,9 +27,10 @@
 }
 
 .tarjetaUsuario {
-  background-color: #ede9fe;
+  background-color: #dac4e8;
   padding: 24px 20px;
   position: relative;
+
 }
 
 .botonCerrar {
@@ -37,7 +39,7 @@
   right: 16px;
   background: none;
   border: none;
-  color: #534ab7;
+  color: #3c3489;
   cursor: pointer;
   padding: 4px;
   display: inline-flex;
@@ -46,6 +48,7 @@
 .botonCerrar svg {
   width: 20px;
   height: 20px;
+
 }
 
 .avatar {
@@ -56,7 +59,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #7c6fe0;
+  color: #3c3489;
   margin-bottom: 10px;
 }
 
@@ -75,7 +78,7 @@
 .dniUsuario {
   margin: 0 0 8px;
   font-size: 13px;
-  color: #534ab7;
+  color: #5f646d;
 }
 
 .estadoUsuario {
@@ -91,12 +94,15 @@
 .estadoUsuario svg {
   width: 14px;
   height: 14px;
+  
 }
 
 .navegacion {
   display: flex;
   flex-direction: column;
   padding: 12px 0;
+  
+  
 }
 
 .itemMenu {
@@ -109,19 +115,22 @@
   border-left: 4px solid transparent;
   font-size: 15px;
   font-weight: 600;
-  color: #374151;
+  color: #5f646d;
   cursor: pointer;
-  text-align: left;
+  text-align: left;  
 }
 
 .itemMenu:hover {
-  background-color: #f5f3ff;
+  background-color: #c2abd5;
+  box-shadow: 0 4px 10px rgba(52, 37, 65, 0.53); /* nuevo*/
+
 }
 
 .itemActivo {
-  border-left-color: #7c6fe0;
+  border-left-color: #534ab7;
   background-color: #f5f3ff;
   color: #534ab7;
+  
 }
 
 .iconoItem {
@@ -138,8 +147,9 @@
 
 .separador {
   height: 1px;
-  background-color: #e5e7eb;
+  background-color: #7c7588a0;
   margin: 8px 20px;
+  
 }
 
 .botonSalir {
@@ -154,13 +164,17 @@
   color: #7c6fe0;
   cursor: pointer;
   text-align: left;
+  
+  
 }
 
 .botonSalir:hover {
   background-color: #f5f3ff;
+  
 }
 
 .botonSalir svg {
   width: 22px;
   height: 22px;
+  
 }
