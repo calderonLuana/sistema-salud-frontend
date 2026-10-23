@@ -2,9 +2,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
   padding: 18px 20px;
   background-color: #7c6fe0;
   color: #ffffff;
+}
+
+.grupoIzquierdo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
 }
 
 .botonMenu {
@@ -14,18 +23,12 @@
   cursor: pointer;
   padding: 4px;
   display: inline-flex;
+  flex-shrink: 0;
 }
 
 .botonMenu svg {
   width: 24px;
   height: 24px;
-}
-
-.titulo {
-  flex: 1;
-  margin-left: 16px;
-  font-size: 22px;
-  font-weight: 700;
 }
 
 .logo {
@@ -35,11 +38,29 @@
   font-size: 20px;
   font-weight: 800;
   letter-spacing: 0.5px;
+  flex-shrink: 0;
 }
 
 .logo svg {
   width: 24px;
   height: 24px;
+}
+
+.separadorTitulo {
+  width: 1px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.45);
+  flex-shrink: 0;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
 }
 
 .iconoPerfil {
@@ -52,6 +73,7 @@
   background-color: #ffffff;
   color: #3c3489;
   text-decoration: none;
+  flex-shrink: 0;
 }
 
 .iconoPerfil svg {

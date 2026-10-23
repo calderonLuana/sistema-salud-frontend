@@ -1,67 +1,132 @@
 .tarjeta {
-  width: 100%;
-  max-width: 650px;
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: #f2f0fb;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  margin-bottom: 20px;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-.franjaFecha {
-  padding: 12px 20px;
-  background-color: #7c6fe0;
-  color: #ffffff;
+.franja {
+  padding: 10px 18px;
+  background-color: #e3dcf9;
+  color: #3c3489;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .cuerpo {
-  padding: 20px;
-}
-
-.encabezado {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 16px;
+  align-items: center;
+  gap: 14px;
+  padding: 18px;
+  flex: 1;
 }
 
-.profesionalInfo {
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #3c3489;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.nombreProfesional {
-  margin: 0;
-  font-size: 17px;
-  font-weight: 700;
+.avatar svg {
+  width: 26px;
+  height: 26px;
+}
+
+.info {
+  min-width: 0;
+}
+
+.paciente {
+  margin: 0 0 2px;
+  font-size: 20px;
+  font-weight: 600;
   color: #1f2937;
 }
 
 .especialidad {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 500;
-  color: #6b7280;
+  margin: 0 0 2px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
 }
 
-.estado {
+.fechaHora {
+  margin: 0;
+  font-size: 15px;
+  color: #4b5563;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 18px 18px;
+}
+
+.boton {
+  flex: 1 1 130px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  white-space: nowrap;
+  min-height: 44px;
+  padding: 0 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: 0.2s ease;
 }
 
-.reservado {
+.botonDetalles {
+  background-color: #ffffff;
+  border: 1px solid #c9bff0;
+  color: #3c3489;
+}
+
+.botonDetalles:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botonEditar {
+  background-color: #ffffff;
+  border: 1px solid #5b4fc7;
+  color: #5b4fc7;
+}
+
+.botonEditar:hover {
+  background-color: #5b4fc7;
+  color: #ffffff;
+}
+
+.botonCancelar {
+  background-color: #ffffff;
+  border: 1px solid #dc2626;
+  color: #b91c1c;
+}
+
+.botonCancelar:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+/* Etiquetas de estado (no son botones) */
+.estado {
+  cursor: default;
+  border: none;
+}
+
+.completado {
   background-color: #dcfce7;
   color: #166534;
 }
@@ -71,94 +136,8 @@
   color: #991b1b;
 }
 
-.dato {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.etiqueta {
-  font-size: 13px;
-  font-weight: 500;
-  color: #6b7280;
-}
-
-.valor {
-  font-size: 15px;
-  font-weight: 500;
-  color: #1f2937;
-}
-
-.acciones {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid #e5e7eb;
-}
-
-.botonEditar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 18px;
-  border: 1px solid #7c6fe0;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #7c6fe0;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  text-decoration: none;
-  transition: 0.2s ease;
-}
-
-.botonEditar:hover {
-  background-color: #7c6fe0;
-  color: #ffffff;
-}
-
-.botonCancelar {
-  padding: 10px 18px;
-  border: 1px solid #dc2626;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #dc2626;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.botonCancelar:hover {
-  background-color: #dc2626;
-  color: #ffffff;
-}
-
-@media (max-width: 600px) {
-  .cuerpo {
-    padding: 16px;
-  }
-
-  .franjaFecha {
-    padding: 10px 16px;
-    font-size: 13px;
-  }
-
-  .encabezado {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .acciones {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .botonEditar,
-  .botonCancelar {
-    width: 100%;
-  }
+/* FUNCIONALIDAD DE PRUEBA - NO APTA PARA PRODUCCIÓN: estado "No asistió" */
+.noAsistio {
+  background-color: #fef3c7;
+  color: #92400e;
 }
